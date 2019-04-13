@@ -1,6 +1,6 @@
 const {MongoClient, ObjectID} = require('mongodb');
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, client) => {
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
     if (error) {
         console.log('Unable to connect to database', error);
         return;
@@ -17,7 +17,6 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, client) => {
             console.log('Unable to fetch todos', error);
         });
         */
-    const db = client.db('Todo')
         
     db.collection('Todos').find().count().then(count => {
         console.log(`Todos count: ${count}`);
