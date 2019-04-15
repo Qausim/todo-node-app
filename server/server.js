@@ -63,8 +63,8 @@ app.post('/todos', (request, response) => {
 
 app.get('/todos', (request, response) => {
     Todo.find()
-        .then(docs => {
-            response.status(200).send(docs);
+        .then(todos => {
+            response.status(200).send({todos});
         })
         .catch(err => response.status(400).send(err));
 });
