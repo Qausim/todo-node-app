@@ -76,6 +76,7 @@ app.get('/todos/:id', (request, response) => {
     
     if (!ObjectID.isValid(id)) {
         response.status(404).send();
+        return;
     }
 
     Todo.findById(id)
