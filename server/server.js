@@ -47,7 +47,7 @@ const {User} = require('./models/user');
 const {ObjectID} = require('mongodb');
 
 
-let port = process.env.port || 3000;
+let port = process.env.PORT || 3000;
 
 const app = express();
 
