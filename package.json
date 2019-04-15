@@ -10,12 +10,21 @@
     "test-watch": "nodemon --exec \"npm test\""
   },
   "engines": {
-    "node": "6.2.2"
+    "node": "10.15.0"
   },
+  "repository": {
+    "type": "https://github.com/Qausim/todo-node-app"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "author": "O. Qauzeem Yusuff",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "mongodb": "^2.2.36",
     "mongoose": "^4.13.18"
