@@ -37,7 +37,7 @@ firstUser.save().then(user => {
     console.log('Unable to save user', err);
 });
 */
-
+const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -106,6 +106,40 @@ app.delete('/todos/:id', (request, response) => {
             response.status(200).send({todo});
         })
         .catch(e => response.status(404).send(e));
+});
+
+app.patch('/todos/:id', (request, response) => {
+    let id = request.params.id;
+    var body = _.pick(request.body, ['text', 'completed']);
+
+    if (!ObjectID.isValid(id)) {
+        return response.status(404).send();
+    }
+
+    if (_.isBoolean(body.completed) && body.completed) {
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    Todo.findByIdAndUpdate(id, {
+        $set: body /*{
+            text: body.text,
+            completed: body.completed,
+            completedAt: body.completedAt
+            aboe works
+        }*/
+    }, {
+        new: true
+    })
+        .then(todo => {
+            if (!todo) {
+                return response.status(404).send();
+            }
+            return response.status(200).send({todo});
+        })
+        .catch(e => response.status(404).send());
 });
 
 app.listen(port, () => console.log(`Started on port ${port}`));
