@@ -118,16 +118,24 @@ describe('DELETE /todos/:id', () => {
         .delete(`/todos/${id}`)
         .expect(200)
         .expect(res => {
-            expect(res.body.todo).toEqual(todos[0]);
+            expect(res.body.todo._id).toEqual(id);
         })
         .end(done);
     });
 
     it('should return 404 if todo not found', done => {
-
+        let id = new ObjectID();
+        request(app)
+            .delete(`/todos/${id}`)
+            .expect(404)
+            .end(done);
     });
 
     it('should return 404 if object id invalid', done => {
-
+        let invalidId = 123;
+        request(app)
+            .delete(`/todos/${invalidId}`)
+            .expect(404)
+            .end(done);
     });
 });

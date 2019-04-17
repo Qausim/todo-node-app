@@ -96,8 +96,7 @@ app.get('/todos/:id', (request, response) => {
 app.delete('/todos/:id', (request, response) => {
     let id = request.params.id;
     if (!ObjectID.isValid(id)) {
-        response.status(404).send();
-        return;
+        return response.status(404).send()
     }
     Todo.findByIdAndRemove(id)
         .then(todo => {
@@ -106,9 +105,7 @@ app.delete('/todos/:id', (request, response) => {
             }
             response.status(200).send({todo});
         })
-        .catch(e => {
-            response.status(400).send();
-        });
+        .catch(e => response.status(404).send(e));
 });
 
 app.listen(port, () => console.log(`Started on port ${port}`));
